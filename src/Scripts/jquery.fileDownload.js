@@ -308,11 +308,14 @@ $.extend({
                     formDoc = getiframeDocument($iframe);
                 }
 
-                formDoc.write("<html><head></head><body><form method='" + settings.httpMethod + "' action='" + fileUrl + "'>" + formInnerHtml + "</form>" + settings.popupWindowTitle + "</body></html>");
+                var url = window.location.origin + window.location.pathname + fileUrl
+
+                formDoc.write("<html><head></head><body><form method='" + settings.httpMethod + "' action='" + url + "'>" + formInnerHtml
+                    + "</form>" + settings.popupWindowTitle
+                    + "<script>document.getElementsByTagName('form')[0].submit();</script></body></html>");
+
                 $form = $(formDoc).find('form');
             }
-
-            $form.submit();
         }
 
 
