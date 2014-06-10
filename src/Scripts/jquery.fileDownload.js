@@ -308,9 +308,11 @@ $.extend({
                     formDoc = getiframeDocument($iframe);
                 }
 
-                var url = window.location.origin + window.location.pathname + fileUrl
+                if (!/^(https?:\/\/)([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/.test(fileUrl)){
+                    fileUrl = window.location.origin + window.location.pathname + fileUrl;
+                }
 
-                formDoc.write("<html><head></head><body><form method='" + settings.httpMethod + "' action='" + url + "'>" + formInnerHtml
+                formDoc.write("<html><head></head><body><form method='" + settings.httpMethod + "' action='" + fileUrl + "'>" + formInnerHtml
                     + "</form>" + settings.popupWindowTitle
                     + "<script>document.getElementsByTagName('form')[0].submit();</script></body></html>");
 
