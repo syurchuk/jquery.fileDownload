@@ -309,7 +309,12 @@ $.extend({
                 }
 
                 if (!/^(https?:\/\/)([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/.test(fileUrl)){
-                    fileUrl = window.location.origin + window.location.pathname + fileUrl;
+                    var origin = window.location.origin;
+                    // origin fix for IE
+                    if (!origin) {
+                        origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+                    }
+                    fileUrl = origin + window.location.pathname + fileUrl;
                 }
 
                 formDoc.write("<html><head></head><body><form method='" + settings.httpMethod + "' action='" + fileUrl + "'>" + formInnerHtml
